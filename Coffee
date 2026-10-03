@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر القهوة المختصة | أرابيكا</title>
+    <!-- ربط ملف التصميم -->
+    <link rel="stylesheet" href="style.css">
+    <!-- خط تجوال العربي -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- الشريط العلوي -->
+    <nav class="navbar">
+        <div class="logo">أرابيكا<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#">الرئيسية</a></li>
+            <li><a href="#">المتجر</a></li>
+            <li><a href="#">تواصل معنا</a></li>
+        </ul>
+    </nav>
+
+    <!-- منطقة المنتج -->
+    <main class="product-page">
+        <!-- صورة المنتج -->
+        <div class="product-image">
+            <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="كيس قهوة مختصة">
+        </div>
+        
+        <!-- تفاصيل المنتج والخيارات -->
+        <div class="product-details">
+            <span class="badge">الأكثر مبيعاً</span>
+            <h1>قهوة كولومبية - سوبريمو</h1>
+            <p class="desc">قهوة مختصة ذات إيحاءات الشوكولاتة الداكنة والكراميل، محمصة بعناية لتناسب الفلتر والإسبريسو. تمنحك كوباً متوازناً بقوام ممتلئ.</p>
+            
+            <!-- لوحة التفاعل (الطحنة، الوزن، الكمية) -->
+            <div class="options">
+                <h3>نوع الطحنة:</h3>
+                <div class="grind-options">
+                    <input type="radio" id="beans" name="grind" value="حبوب كاملة" checked>
+                    <label for="beans">حبوب كاملة</label>
+                    
+                    <input type="radio" id="espresso" name="grind" value="إسبريسو">
+                    <label for="espresso">إسبريسو</label>
+                    
+                    <input type="radio" id="filter" name="grind" value="فلتر (V60)">
+                    <label for="filter">فلتر (V60)</label>
+                </div>
+
+                <h3>الوزن (يحدد السعر):</h3>
+                <select id="weight-select">
+                    <!-- لاحظ الـ data-price هنا هو الذي سيقرأه الجافاسكريبت -->
+                    <option value="250" data-price="250">250 جرام</option>
+                    <option value="500" data-price="450">500 جرام</option>
+                    <option value="1000" data-price="850">1 كيلو (خصم خاص)</option>
+                </select>
+
+                <h3>الكمية:</h3>
+                <div class="quantity-control">
+                    <button id="decrease">-</button>
+                    <input type="number" id="quantity" value="1" min="1" readonly>
+                    <button id="increase">+</button>
+                </div>
+            </div>
+
+            <!-- السعر النهائي وزر الشراء -->
+            <div class="checkout-section">
+                <div class="price-display">
+                    <span>السعر الإجمالي:</span>
+                    <h2 id="total-price">250 ج.م</h2>
+                </div>
+                <button class="add-to-cart">أضف إلى السلة</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ربط ملف البرمجة -->
+    <script src="script.js"></script>
+</body>
+</html>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    background-color: #fcf9f5;
+    color: #3b2818;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: #3b2818;
+}
+
+.logo span { color: #d35400; } /* لون برتقالي/ذهبي للنقطة */
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #3b2818;
+    font-weight: 500;
+}
+
+/* Product Page Layout */
+.product-page {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    gap: 40px;
+}
+
+.product-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.product-image img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Product Details */
+.product-details {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.badge {
+    background: #d35400;
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+h1 { margin-bottom: 15px; font-size: 32px; color: #2d1c0d; }
+.desc { color: #666; line-height: 1.7; margin-bottom: 25px; font-size: 16px; }
+
+/* Form Options */
+h3 { font-size: 16px; margin-bottom: 10px; margin-top: 20px; color: #2d1c0d; }
+
+.grind-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.grind-options input[type="radio"] { display: none; } /* إخفاء الدائرة التقليدية */
+
+.grind-options label {
+    padding: 10px 20px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    user-select: none;
+}
+
+.grind-options input[type="radio"]:checked + label {
+    border-color: #d35400;
+    background: #fff3e0;
+    color: #d35400;
+    font-weight: 700;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Quantity Control */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-control button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: #f4f4f4;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.quantity-control button:hover { background: #e0e0e0; }
+
+.quantity-control input {
+    width: 60px;
+    height: 40px;
+    text-align: center;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-size: 18px;
+    outline: none;
+}
+
+/* Checkout Section */
+.checkout-section {
+    margin-top: 35px;
+    padding-top: 25px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.price-display span { font-size: 14px; color: #666; }
+.price-display h2 { color: #d35400; font-size: 32px; margin-top: 5px; }
+
+.add-to-cart {
+    background: #2d1c0d;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    flex: 1;
+    min-width: 200px;
+}
+
+.add-to-cart:hover { background: #5c3a21; transform: translateY(-2px); }
+
+/* الموبايل والشاشات الصغيرة */
+@media (max-width: 768px) {
+    .navbar { flex-direction: column; gap: 15px; }
+    .product-page { margin: 20px; padding: 20px; }
+    h1 { font-size: 26px; }
+    .checkout-section { flex-direction: column; align-items: stretch; text-align: center; }
+}
+// تعريف المتغيرات وربطها بعناصر الـ HTML
+const weightSelect = document.getElementById('weight-select');
+const quantityInput = document.getElementById('quantity');
+const btnIncrease = document.getElementById('increase');
+const btnDecrease = document.getElementById('decrease');
+const totalPriceDisplay = document.getElementById('total-price');
+
+// دالة لحساب وتحديث السعر
+function updatePrice() {
+    // 1. الحصول على السعر الخاص بالوزن الذي اختاره العميل
+    const selectedOption = weightSelect.options[weightSelect.selectedIndex];
+    const basePrice = parseInt(selectedOption.getAttribute('data-price'));
+    
+    // 2. الحصول على الكمية المطلوبة
+    const quantity = parseInt(quantityInput.value);
+    
+    // 3. عملية الضرب (السعر × الكمية)
+    const total = basePrice * quantity;
+    
+    // 4. عرض السعر الجديد في الشاشة
+    totalPriceDisplay.textContent = total + ' ج.م';
+}
+
+// تنفيذ العملية فورا عند تغيير العميل للوزن من القائمة
+weightSelect.addEventListener('change', updatePrice);
+
+// برمجة زر (+) لزيادة الكمية
+btnIncrease.addEventListener('click', () => {
+    let currentVal = parseInt(quantityInput.value);
+    quantityInput.value = currentVal + 1; // زيادة 1
+    updatePrice(); // تحديث السعر
+});
+
+// برمجة زر (-) لتقليل الكمية
+btnDecrease.addEventListener('click', () => {
+    let currentVal = parseInt(quantityInput.value);
+    // التأكد أن الكمية لا تقل عن 1
+    if (currentVal > 1) {
+        quantityInput.value = currentVal - 1; // نقص 1
+        updatePrice(); // تحديث السعر
+    }
+});
+
+// تشغيل دالة الحساب مرة واحدة عند فتح الموقع لضبط السعر الافتراضي
+updatePrice();
